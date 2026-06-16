@@ -10,6 +10,27 @@ Base = declarative_base()
 T = TypeVar("T")
 
 
+def to_async_url(db_url: str) -> str:
+    """Rewrite a sync database URL to its async driver equivalent.
+
+    Handles ``postgresql+psycopg://``, plain ``postgresql://``/``postgres://``
+    (all -> ``+asyncpg``) and ``sqlite:///`` (-> ``+aiosqlite``). Idempotent for
+    URLs already using an async driver.
+    """
+    async_url = db_url
+    if async_url.startswith("postgresql+psycopg://"):
+        async_url = async_url.replace(
+            "postgresql+psycopg://", "postgresql+asyncpg://", 1
+        )
+    elif async_url.startswith("postgresql://"):
+        async_url = async_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    elif async_url.startswith("postgres://"):
+        async_url = async_url.replace("postgres://", "postgresql+asyncpg://", 1)
+    elif async_url.startswith("sqlite:///"):
+        async_url = async_url.replace("sqlite:///", "sqlite+aiosqlite:///", 1)
+    return async_url
+
+
 class UUIDMixin:
     """Mixin to use a UUID string as primary key."""
 
@@ -134,9 +155,7 @@ class AsyncDatabaseManager:
             create_async_engine,
         )
 
-        async_url = db_url.replace(
-            "postgresql+psycopg://", "postgresql+asyncpg://"
-        ).replace("sqlite:///", "sqlite+aiosqlite:///")
+        async_url = to_async_url(db_url)
         engine_kwargs: dict = {"pool_pre_ping": True}
         if "sqlite" not in db_url:
             engine_kwargs.update(

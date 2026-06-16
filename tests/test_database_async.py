@@ -31,9 +31,7 @@ async def test_async_db_manager_create_tables():
     await db.create_tables()
 
     async for session in db.get_session():
-        result = await session.execute(
-            __import__("sqlalchemy").text("SELECT 1")
-        )
+        result = await session.execute(__import__("sqlalchemy").text("SELECT 1"))
         assert result.scalar() == 1
 
     await db.close()

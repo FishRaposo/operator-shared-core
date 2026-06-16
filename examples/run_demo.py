@@ -30,8 +30,11 @@ def run_shared_core_demo():
     )
 
     # 3. Database Manager Initialization
-    logger.info(f"Connecting to database engine via URL: {config.DATABASE_URL}...")
-    db_manager = DatabaseManager(config.DATABASE_URL)
+    # Default to an in-memory SQLite URL so the demo runs dependency-free
+    # (no Postgres/psycopg required); override via DATABASE_URL to use a real DB.
+    database_url = os.getenv("DATABASE_URL", "sqlite:///:memory:")
+    logger.info(f"Connecting to database engine via URL: {database_url}...")
+    db_manager = DatabaseManager(database_url)
 
     # 4. Redis Manager Initialization
     logger.info(f"Connecting to Redis client pool via URL: {config.REDIS_URL}...")

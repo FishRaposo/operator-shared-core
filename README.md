@@ -4,7 +4,7 @@
 ![Pydantic v2](https://img.shields.io/badge/pydantic-v2-green)
 ![SQLAlchemy 2.0](https://img.shields.io/badge/sqlalchemy-2.0-orange)
 ![Library Only](https://img.shields.io/badge/type-library-lightgrey)
-![Tests](https://img.shields.io/badge/tests-45%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-95%20passing-brightgreen)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
 **The shared foundation library powering every Python service in the Operator Systems showcase portfolio.**

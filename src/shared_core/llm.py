@@ -14,11 +14,15 @@ MODEL_COSTS = {
 
 
 def estimate_llm_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
-    """Helper to calculate LLM completion USD cost."""
-    input_rate, output_rate = MODEL_COSTS.get(model, (5.0, 15.0))
-    input_cost = (prompt_tokens / 1_000_000) * input_rate
-    output_cost = (completion_tokens / 1_000_000) * output_rate
-    return input_cost + output_cost
+    """Helper to calculate LLM completion USD cost.
+
+    Delegates to :mod:`shared_core.pricing`, the single source of truth for
+    per-model token pricing. ``MODEL_COSTS`` above is retained for backward
+    compatibility; new code should prefer ``shared_core.pricing``.
+    """
+    from shared_core.pricing import calculate_cost
+
+    return calculate_cost(model, prompt_tokens, completion_tokens)
 
 
 class LLMResponse(BaseModel):

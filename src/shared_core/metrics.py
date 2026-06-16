@@ -38,9 +38,12 @@ class MetricsRegistry:
     """
 
     def __init__(self, service_name: str):
+        # Resolve metric classes via the guarded helper first so a missing
+        # prometheus_client raises the friendly install message, not a bare
+        # ImportError from the direct CollectorRegistry import below.
+        Counter, Histogram, Gauge, _, _ = _get_metrics()
         from prometheus_client import CollectorRegistry  # type: ignore
 
-        Counter, Histogram, Gauge, _, _ = _get_metrics()
         self._registry = CollectorRegistry(auto_describe=True)
 
         self.http_requests_total = Counter(
