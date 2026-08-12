@@ -353,6 +353,7 @@ shared-core/
 | `make format` | `ruff format .` | Auto-format with ruff |
 | `make typecheck` | `pyright` | Static type checking |
 | `make docs` | `mkdocs build` | Generate API documentation |
+| `make check-migrations` | `python scripts/check_migration_docs.py` | Validate migration-guide provenance and scope markers |
 | `make docker-up` | `docker compose up -d` | Start Postgres + Redis |
 | `make docker-down` | `docker compose down` | Stop infrastructure |
 | `make demo` | `python examples/run_demo.py` | Run demonstration script |
@@ -399,3 +400,4 @@ Every Python project in the portfolio depends on `shared-core`:
 - [Roadmap](docs/roadmap.md) — Planned improvements
 - [Security](docs/security.md) — Secrets handling and trust boundaries
 - [Implementation Plan](docs/implementation_plan.md) — Technical implementation details
+- [Operator Systems Template Starter Reference](docs/migrations/2026-08-12-operator-systems-template-into-operator-shared-core.md) — Documentation-only source mapping, reusable conventions, and archive gate

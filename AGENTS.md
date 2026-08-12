@@ -15,6 +15,7 @@ make lint       # ruff check . — linting checks
 make format     # ruff format . — code formatting
 make typecheck  # pyright — type verification
 make docs       # mkdocs build — API documentation generation
+make check-migrations # validates migration-guide provenance and documentation-only scope
 make docker-up  # docker compose up -d — starts Postgres (with pgvector) and Redis
 make docker-down# docker compose down — stops infrastructure
 make demo       # python examples/run_demo.py — runs the example script
@@ -165,3 +166,7 @@ Optional extras (dynamically imported): `[docparse]` = `pymupdf`, `python-docx`,
 - Dependencies added or removed in `pyproject.toml`
 - Install procedure changes
 - State transitions (e.g., tests added, CI configured, version bump)
+
+## Documentation-only template reference
+
+`docs/migrations/2026-08-12-operator-systems-template-into-operator-shared-core.md` records the selected operator-systems-template conventions as a starter/reference guide. It does **not** integrate the template runtime, dependencies, CI, container setup, or remotes into this library. Keep the source URL, SHA, license status, excluded runtime paths, and archive gate accurate; run `make check-migrations` after changing this record or its references.

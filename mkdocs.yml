@@ -21,6 +21,8 @@ nav:
   - Security: docs/security.md
   - Roadmap: docs/roadmap.md
   - Implementation Plan: docs/implementation_plan.md
+  - Migration References:
+      - Operator Systems Template Starter Reference: docs/migrations/2026-08-12-operator-systems-template-into-operator-shared-core.md
   - API Reference:
       - config: docs/api/config.md
       - database: docs/api/database.md
